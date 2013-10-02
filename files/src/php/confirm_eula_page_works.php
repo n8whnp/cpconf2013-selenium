@@ -13,26 +13,26 @@ $title = $driver->findElement(WebDriverBy::xpath('html/body/h1'))->getText();
 
 if ($title !== 'End User License Agreement')
 {
-	$bail_out(sprintf('Fail: Title did not match, was: %s', $title));
+	$bail_out($driver, sprintf('Fail: Title did not match, was: %s', $title));
 }
 echo 'Pass: Title matches.' . "\n";
 
 
 if (!$driver->findElement(WebDriverBy::xpath('//textarea'))->isDisplayed())
 {
-	$bail_out('Fail: License is not visible');
+	$bail_out($driver, 'Fail: License is not visible');
 }
 echo 'Pass: License is visible.' . "\n";
 
 if (!$driver->findElement(WebDriverBy::id('agree'))->isDisplayed())
 {
-	$bail_out('Fail: Agree button is not visable');
+	$bail_out($driver, 'Fail: Agree button is not visable');
 }
 echo 'Pass: Agree button is visible.' . "\n";
 
 if (!$driver->findElement(WebDriverBy::id('decline'))->isDisplayed())
 {
-	$bail_out('Fail: Disagree button is not visible');
+	$bail_out($driver, 'Fail: Disagree button is not visible');
 }
 echo 'Pass: Disagree button is visible.' . "\n";
 
@@ -42,7 +42,7 @@ $startUrl = $driver->getCurrentUrl();
 $driver->findElement(WebDriverBy::id('decline'))->click();
 if ($startUrl !== $driver->getCurrentUrl() )
 {
-	$bail_out(sprintf('Fail: Disagree button took us to a new url: %s', $driver->getCurrentUrl()));
+	$bail_out($driver, sprintf('Fail: Disagree button took us to a new url: %s', $driver->getCurrentUrl()));
 }
 echo 'Pass: Disagree button took us back to the same page.' . "\n";
 
@@ -52,20 +52,20 @@ $startUrl = $driver->getCurrentUrl();
 $driver->findElement(WebDriverBy::id('agree'))->click();
 if ($startUrl === $driver->getCurrentUrl() )
 {
-	$bail_out(sprintf('Fail: Agree button took us back to the same url: %s', $driver->getCurrentUrl()));
+	$bail_out($driver, sprintf('Fail: Agree button took us back to the same url: %s', $driver->getCurrentUrl()));
 }
 echo 'Pass: Agree button took us to a new page.' . "\n";
 
 $confirm_header = $driver->findElement(WebDriverBy::xpath('html/body/h1') )->getText();
 if ($confirm_header !== 'Thanks for agreeing')
 {
-	$bail_out(sprintf('Fail: Agree page has wrong header got: %s', $confirm_header));
+	$bail_out($driver, sprintf('Fail: Agree page has wrong header got: %s', $confirm_header));
 }
 echo 'Pass: Agree page has expected header.' . "\n";
 
 if (!$driver->findElement(WebDriverBy::id('disclaimer'))->isDisplayed())
 {
-	$bail_out('Fail: Disclaimer is not visible');
+	$bail_out($driver, 'Fail: Disclaimer is not visible');
 }
 echo 'Pass: Disclaimer is visible.' . "\n";
 
@@ -73,7 +73,7 @@ echo 'Pass: Disclaimer is visible.' . "\n";
 $driver->quit();
 
 
-function bail_out($error)
+function bail_out($driver, $error)
 {
 	$driver->quit();
 	exit($error);
