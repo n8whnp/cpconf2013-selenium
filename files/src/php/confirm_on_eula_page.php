@@ -13,7 +13,7 @@ $title = $driver->findElement(WebDriverBy::xpath('html/body/h1'))->getText();
 
 if ($title !== 'End User License Agreement')
 {
-	$bail_out($driver, sprintf('Title did not match, was: %s', $title));
+	bail_out($driver, sprintf('Title did not match, was: %s', $title));
 }
 
 echo 'Pass: Title matches.' . "\n";
