@@ -24,8 +24,8 @@ $driver->findElement(WebDriverBy::linkText('United States'))->click();
 $completed_value = $driver->findElement(WebDriverBy::id('countries'))->getAttribute('value');
 if ( $completed_value !== 'United States')
 {
-	bail_out($driver, sprintf('Fail: Confirm clicking on an autocomplete puts in full value, was: %s', $completed_value));	
-} 
+	bail_out($driver, sprintf('Fail: Confirm clicking on an autocomplete puts in full value, was: %s', $completed_value));
+}
 echo 'Pass: Autocomplete fills in new value.' . "\n";
 
 // Test Accordion
